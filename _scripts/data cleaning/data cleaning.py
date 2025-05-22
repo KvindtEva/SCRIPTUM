@@ -5,6 +5,8 @@
 from datasets import load_dataset
 from datasets import Dataset
 import pandas as pd
+from langdetect import detect
+import re
 
 #%% LOAD DATA FROM HUGGINGFACE
 dataset_text = load_dataset('janko/250521-scriptum')
@@ -49,7 +51,7 @@ scriptum_text_df = subset.to_pandas() # too large, returns error
 #      -> research lang-detect
 # - exclude Sonderzeichen
 # - exclude [pagebreak\d\d]
-# - exclude where number of tokens is too small
+# X exclude where number of tokens is too small
 # - exclude the journal name
 #%% MERGE THE DATASETS
 
@@ -62,9 +64,12 @@ scriptum_df = scriptum_metadata_df.merge(scriptum_text_df, on='file', how='inner
 
 scriptum_df.head()
 
-# %% FUNCTION FOR CLEANING THE TEXT
+# %% CLEANING THE TEXT
 
-import re
+# removing text with insufficent token length
+scriptum_df = scriptum_df.loc[scriptum_df['tokens_N']>0]
+
+# FUNCTION FOR cleaning the text
 
 def clean_text(text):
     if text:
@@ -74,10 +79,13 @@ def clean_text(text):
         text = re.sub(r'[■•>ů♦©®►▲]', '', text)
     return text
 
-scriptum_df['cleaned_text'] = scriptum_df['text'].apply(clean_text)    
+def check_language(text_string):
+    detect(text_string)
+    pass
 
-#for row in scriptum_df['tokens']:
-    #if row 
+scriptum_df['cleaned_text'] = scriptum_df['text'].apply(clean_text)
+
+scriptum_df['detected_language'] = scriptum_df['text'].apply(check_language)    
 
 scriptum_df.head()
 
