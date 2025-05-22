@@ -71,9 +71,9 @@ scriptum_df = scriptum_df.loc[scriptum_df['tokens_N']>0]
 
 # FUNCTION FOR cleaning the text
 
+#FUNCTION FOR CLEANING 
 def clean_text(text):
     if text:
-        # CLEANING PAGEENDS AND SUPERFLUOUS BLANK SPACES
         text = re.sub(r'\[pageend\d+\]', '', text)
         text = re.sub(r'\s+', ' ', text).strip()
         text = re.sub(r'[■•>ů♦©®►▲]', '', text)
@@ -85,8 +85,21 @@ def check_language(text_string):
 
 scriptum_df['cleaned_text'] = scriptum_df['text'].apply(clean_text)
 
-scriptum_df['detected_language'] = scriptum_df['text'].apply(check_language)    
+scriptum_df = scriptum_df.loc[scriptum_df["tokens_N"]>0]
+scriptum_df = scriptum_df.loc[scriptum_df['text'].str.len() > 100]
+scriptum_df = scriptum_df.loc[scriptum_df['file'].str.contains('obsah_ocr') ]
 
+def remove_periodicals(text, periodicals):
+    for string in periodicals:
+        text = text.replace(string, '')
+    return text.strip()  
+
+periodical_titles = scriptum_df['periodical_title'].to_list()
+
+scriptum_df['cleaned_text'] = scriptum_df['cleaned_text'].apply(lambda x: remove_strings(x, periodical_titles))
+
+print(periodical_titles)
 scriptum_df.head()
 
 # %%
+
