@@ -5,3 +5,12 @@
 # dataset = load_dataset("text", data_files={"train": ["my_text_1.txt", "my_text_2.txt"], "test": "my_test_file.txt"})
 
 # dataset = load_dataset("text", data_dir="path/to/text/dataset")
+
+# load data from huggingface
+from datasets import load_dataset
+import pandas as pd
+
+dataset = load_dataset('janko/250521-scriptum')
+
+# convert data to pandas
+scriptum_text_df = pd.Dataset.to_pandas('dataset')
