@@ -1,33 +1,51 @@
 # https://huggingface.co/datasets/janko/250521-scriptum
 # https://github.com/stopwords-iso/stopwords-cs/blob/master/stopwords-cs.txt
 
-# from datasets import load_dataset
-# dataset = load_dataset("text", data_files={"train": ["my_text_1.txt", "my_text_2.txt"], "test": "my_test_file.txt"})
-
-# dataset = load_dataset("text", data_dir="path/to/text/dataset")
-
-#%% load data from huggingface
+#%% IMPORTS
 from datasets import load_dataset
 from datasets import Dataset
 import pandas as pd
 
-#%%
+#%% LOAD DATA FROM HUGGINGFACE
 dataset = load_dataset('janko/250521-scriptum')
 
-#%% convert data to pandas
-# scriptum_text_df = Dataset.to_pandas('dataset') # too large, returns error
+#%% FILTERING THE DATA BY YEAR
 
-#%%
+# we have created a list of filenames
+# of textdata between the years 1971-1999
+# we are extracting these of the huggingface dataset
 
 with open("filenames_SCRIPTUM_1971-1999.txt", mode='r') as file:
     filename_list = file.read().splitlines()
 
-#%%
-
 subset = dataset['train'].filter(lambda row: row["file"] in filename_list)
 len(subset)
 
-#%% --------------------------------------
+# --------------------------------------
+# Testing
+# dataset['train']['file'] # -> list
+# full_filename_set = set(dataset['train']['file'])
+# subset_filename_set = set(filename_list)
+# --------------------------------------
 
-dataset['train']['file'] # -> list
+#%% convert data to pandas
+scriptum_text_df = subset.to_pandas() # too large, returns error
 
+# ... merge huggingface data with metadata-set ... #
+
+#%%
+
+# extract nonsense data,
+# and wrongly detected ocr,
+# or files which have an insufficient token length.
+
+#%% [markdown]
+
+# **Todos for actual Data Cleaning**
+# - Exlude pages where the ocr is just too bad
+#     -> maybe thouugh lang-detect or something
+#      -> research lang-detect
+# - exclude Sonderzeichen
+# - exclude [pagebreak\d\d]
+# - exclude where number of tokens is too small
+# - exclude the journal name

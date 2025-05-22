@@ -39,3 +39,8 @@ pip install -r requirements.txt
 ## Project Structure
 
 
+## Limitations regarding the Data
+
+- The Meta-dataset contains over 11.600 datapoints, where as the datasets with the fulltext of the journals only contains around 10.500 datapoints.
+- The ocr (optical character recognition) of the journals contains errors that we werent able to correct.
+- For the journals there are some (how many?) where the publication year was missing in the meta-data. We were able to add a publication year to some, but not for all of them. We exluded these of our analysis.
