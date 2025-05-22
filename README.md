@@ -7,6 +7,9 @@ GitHub of EuPaC: https://github.
 com/CCS-ZCU/EuPaC_shared/tree/
 master
 
+Access to dataset: https://huggingface.co/datasets/janko/250521-scriptum
+
+
 # SCRIPTUM Project
 
 (description of project)
