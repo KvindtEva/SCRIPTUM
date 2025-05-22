@@ -70,10 +70,9 @@ def clean_text(text):
     # CLEANING PAGEENDS AND SUPERFLUOUS BLANK SPACES
     text = re.sub(r'\[pageend\d+\]', '', text)
     text = re.sub(r'\s+', ' ', text).strip()
-    text = re.sub(r'[■•>ů♦©®►]')
+    text = re.sub(r'[■•>ů♦©®►]', '', text)
     return text
 
-# Anwenden der Funktion auf die 'text'-Spalte
 scriptum_df['cleaned_text'] = scriptum_df['text'].apply(clean_text)    
 
-scriptum_df['tokens']
+# scriptum_df['tokens']
