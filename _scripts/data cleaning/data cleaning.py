@@ -62,4 +62,18 @@ scriptum_df = scriptum_metadata_df.merge(scriptum_text_df, on='file', how='inner
 
 scriptum_df.head()
 
-# %%
+# %% FUNCTION FOR CLEANING THE TEXT
+
+import re
+
+def clean_text(text):
+    # CLEANING PAGEENDS AND SUPERFLUOUS BLANK SPACES
+    text = re.sub(r'\[pageend\d+\]', '', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(r'[■•>ů♦©®►]')
+    return text
+
+# Anwenden der Funktion auf die 'text'-Spalte
+scriptum_df['cleaned_text'] = scriptum_df['text'].apply(clean_text)    
+
+scriptum_df['tokens']
