@@ -17,7 +17,7 @@ dataset_text = load_dataset('janko/250521-scriptum')
 # of textdata between the years 1971-1999
 # we are extracting these of the huggingface dataset
 
-with open("filenames_SCRIPTUM_1971-1999.txt", mode='r') as file:
+with open("filenames_SCRIPTUM_1968-1989.txt", mode='r') as file:
     filename_list = file.read().splitlines()
 
 #%%
@@ -66,8 +66,8 @@ scriptum_df.head()
 
 # %% CLEANING THE TEXT
 
-# removing text with insufficent token length
-scriptum_df = scriptum_df.loc[scriptum_df['tokens_N']>0]
+# # removing text with insufficent token length
+# scriptum_df = scriptum_df.loc[scriptum_df['tokens_N']>0]
 
 # FUNCTION FOR cleaning the text
 
@@ -79,27 +79,40 @@ def clean_text(text):
         text = re.sub(r'[■•>ů♦©®►▲]', '', text)
     return text
 
-def check_language(text_string):
-    detect(text_string)
-    pass
+# def check_language(text_string):
+#     detect(text_string)
+#     pass
+
+#%%
 
 scriptum_df['cleaned_text'] = scriptum_df['text'].apply(clean_text)
 
 scriptum_df = scriptum_df.loc[scriptum_df["tokens_N"]>0]
 scriptum_df = scriptum_df.loc[scriptum_df['text'].str.len() > 100]
-scriptum_df = scriptum_df.loc[scriptum_df['file'].str.contains('obsah_ocr') ]
+#%%
+scriptum_df_clean = scriptum_df.loc[~scriptum_df.file.str.contains('obsah_ocr')]
+
+#%%
 
 def remove_periodicals(text, periodicals):
     for string in periodicals:
         text = text.replace(string, '')
     return text.strip()  
 
-periodical_titles = scriptum_df['periodical_title'].to_list()
+periodical_titles = set(scriptum_df_clean['periodical_title'].to_list())
 
-scriptum_df['cleaned_text'] = scriptum_df['cleaned_text'].apply(lambda x: remove_strings(x, periodical_titles))
+scriptum_df_clean['cleaned_text'] = scriptum_df_clean['cleaned_text'].apply(lambda x: remove_periodicals(x, periodical_titles))
 
 print(periodical_titles)
-scriptum_df.head()
+scriptum_df_clean.head()
+
+# %% INCLUDE manual annotations
+
+checkup = pd.read_csv(r'data_screening_reviewed.csv', index_col='INDEX')
+checkup = checkup['ANNOTATION']
+
+merged_df = scriptum_df_clean.join(checkup)
+
+export_df = merged_df.loc[merged_df['ANNOTATION']!=0]
 
 # %%
-
