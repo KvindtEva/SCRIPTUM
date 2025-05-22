@@ -10,9 +10,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import requests
-import nltk
+# import nltk
 import os
-from wordcloud import WordCloud
+# from wordcloud import WordCloud
 import json
 import io
 
