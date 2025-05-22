@@ -62,13 +62,13 @@ scriptum_df = scriptum_metadata_df.merge(scriptum_text_df, on='file', how='inner
 
 scriptum_df.head()
 
-# %% FUNCTION FOR CLEANING THE TEXT
+# %% CLEANING THE TEXT
 
 import re
 
+#FUNCTION FOR CLEANING 
 def clean_text(text):
     if text:
-        # CLEANING PAGEENDS AND SUPERFLUOUS BLANK SPACES
         text = re.sub(r'\[pageend\d+\]', '', text)
         text = re.sub(r'\s+', ' ', text).strip()
         text = re.sub(r'[■•>ů♦©®►▲]', '', text)
@@ -76,9 +76,21 @@ def clean_text(text):
 
 scriptum_df['cleaned_text'] = scriptum_df['text'].apply(clean_text)    
 
-#for row in scriptum_df['tokens']:
-    #if row 
+scriptum_df = scriptum_df.loc[scriptum_df["tokens_N"]>0]
+scriptum_df = scriptum_df.loc[scriptum_df['text'].str.len() > 100]
+scriptum_df = scriptum_df.loc[scriptum_df['file'].str.contains('obsah_ocr') ]
 
+def remove_periodicals(text, periodicals):
+    for string in periodicals:
+        text = text.replace(string, '')
+    return text.strip()  
+
+periodical_titles = scriptum_df['periodical_title'].to_list()
+
+scriptum_df['cleaned_text'] = scriptum_df['cleaned_text'].apply(lambda x: remove_strings(x, periodical_titles))
+
+print(periodical_titles)
 scriptum_df.head()
 
 # %%
+
