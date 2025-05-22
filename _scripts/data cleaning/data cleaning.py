@@ -15,7 +15,7 @@ dataset_text = load_dataset('janko/250521-scriptum')
 # of textdata between the years 1971-1999
 # we are extracting these of the huggingface dataset
 
-with open("filenames_SCRIPTUM_1971-1999.txt", mode='r') as file:
+with open("filenames_SCRIPTUM_1968-1989.txt", mode='r') as file:
     filename_list = file.read().splitlines()
 
 #%%

@@ -34,8 +34,8 @@ scriptum_df.head(5) # print start of dataset
 
 #%% CREATE SUBSET of years of interest
 
-scriptum_subset = scriptum_df.loc[scriptum_df["year"]>=1971]
-scriptum_subset = scriptum_subset.loc[scriptum_subset["year"]<=1999]
+scriptum_subset = scriptum_df.loc[scriptum_df["year"]>=1968]
+scriptum_subset = scriptum_subset.loc[scriptum_subset["year"]<=1989]
 
 # %% CREATE TXT FILE 
 # so that we can filter out the the huggingface dataset, which only contains two columns,
@@ -43,7 +43,7 @@ scriptum_subset = scriptum_subset.loc[scriptum_subset["year"]<=1999]
 
 filenames = scriptum_subset['filename'].to_list()
 
-with open("filenames_SCRIPTUM_1971-1999.txt", mode='w') as file:
+with open("filenames_SCRIPTUM_1968-1989.txt", mode='w') as file:
     file.write('\n'.join(filenames))
 
 
