@@ -1,0 +1,7 @@
+sentence-transformers
+turftopic[pyro-ppl]
+transformers==4.44
+umap-learn
+stopwordsiso
+plotly
+huggingface_hub[cli]
