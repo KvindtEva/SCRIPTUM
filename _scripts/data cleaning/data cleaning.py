@@ -66,22 +66,14 @@ scriptum_df.head()
 
 # %% CLEANING THE TEXT
 
-# # removing text with insufficent token length
-# scriptum_df = scriptum_df.loc[scriptum_df['tokens_N']>0]
-
-# FUNCTION FOR cleaning the text
-
 #FUNCTION FOR CLEANING 
 def clean_text(text):
     if text:
         text = re.sub(r'\[pageend\d+\]', '', text)
+        text = re.sub(r'[■•>ů♦©®►▲°\[\]\\\(\)\"\'<>+-=_\^„]', '', text)
         text = re.sub(r'\s+', ' ', text).strip()
-        text = re.sub(r'[■•>ů♦©®►▲]', '', text)
     return text
 
-# def check_language(text_string):
-#     detect(text_string)
-#     pass
 
 #%%
 
@@ -97,7 +89,7 @@ scriptum_df_clean = scriptum_df.loc[~scriptum_df.file.str.contains('obsah_ocr')]
 def remove_periodicals(text, periodicals):
     for string in periodicals:
         text = text.replace(string, '')
-    return text.strip()  
+    return text.strip()
 
 periodical_titles = set(scriptum_df_clean['periodical_title'].to_list())
 
@@ -115,4 +107,7 @@ merged_df = scriptum_df_clean.join(checkup)
 
 export_df = merged_df.loc[merged_df['ANNOTATION']!=0]
 
+# %%
+
+export_df.to_csv('scriptum_cleaned_data.csv', index=False)
 # %%
