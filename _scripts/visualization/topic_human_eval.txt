@@ -1,0 +1,69 @@
+Topic ID: 0
+Czech keywords:
+economics, hříšný, economist, hřích, priemysl, hospodářství, renesance, reformátor, ekonomika, kapitalist
+Proposed English topic name:
+Economic Reform and Capitalism
+SCORE:4
+
+Topic ID: 1
+Czech keywords:
+protiprávní, žaloba, nezákonnost, protizákonný, protiústavní, tužba, obviněný, stížnost, obžalovaný, trestní
+Proposed English topic name:
+Illegality and Legal Accusation
+SCORE:5
+
+Topic ID: 2
+Czech keywords:
+mokrý, trávníček, vlhký, přírodní, naruby, dřivý, fantasie, instinkt, funk, šedivý
+Proposed English topic name:
+Nature, Instinct, and the Surreal
+SCORE:3
+
+Topic ID: 3
+Czech keywords:
+bahamas, america, usa, americans, us, bible, amerika, amerike, americký, americkomi
+Proposed English topic name:
+American Influence and Biblical Themes
+SCORE:2
+
+Topic ID: 4
+Czech keywords:
+switzerland, österreich, schweiz, austrian, švýcarsko, solothurn, perth, swiss, stavebnictví, austrálie
+Proposed English topic name:
+Central European and Australian Geographies
+SCORE:2
+
+Topic ID: 5
+Czech keywords:
+surrealismus, literar, literatúr, literat, literatura, literatúre, filolog, literature, autorův, čtenářský
+Proposed English topic name:
+Surrealism and Literary Criticism
+SCORE:4
+
+Topic ID: 6
+Czech keywords:
+demokratismus, demokratizační, energetika, pragmatismus, konsolidace, demokratičnost, konsensus, demokracie, ideologie, demokratice
+Proposed English topic name:
+Democratization and Political Ideologies
+SCORE:4
+
+Topic ID: 7
+Czech keywords:
+literature, nakladatelství, umění, nakladatelský, vydavatelství, vydavatelstvo, literatura, publikační, publishing, vydavatelský
+Proposed English topic name:
+Publishing and Literary Production
+SCORE:5
+
+Topic ID: 8
+Czech keywords:
+vzkříšení, náboženství, náboženstvo, ukřižovaný, vyznání, božství, znovuzrození, papežství, nábožený, ukřižování
+Proposed English topic name:
+Religion, Resurrection, and Divinity
+SCORE:5
+
+Topic ID: 9
+Czech keywords:
+redakcie, redaktorka, redakční, občasník, redakcium, buchdruckerser, redaktionsschluss, vydať, časopisov, rubrika
+Proposed English topic name:
+Editorial Work and Periodicals
+SCORE:4

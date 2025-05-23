@@ -33,14 +33,21 @@ merged_df.head()
 # - take top topic per document and make a bar plot; document topic matrix
 # - topics over time; document topic matrix with metadata
 
-# %%
+# %% STACKED HISTOGRAM
 
 topics_exil = merged_df.loc[merged_df['periodical_category']=="exil", 'Highest_Topic'].value_counts()
-topics_exil['periodical_category'] = 'exil'
-topics_saizdat = merged_df.loc[merged_df['periodical_category']=="samizdat", 'Highest_Topic'].value_counts()
-topics_saizdat['periodical_category'] = 'saizdat'
+topics_exil = pd.DataFrame({"freq_exil": topics_exil})
 
+topics_samizdat = merged_df.loc[merged_df['periodical_category']=="samizdat", 'Highest_Topic'].value_counts()
+topics_samizdat = pd.DataFrame({"freq_samizdat": topics_samizdat})
 
+topic_freq = pd.merge(topics_exil, topics_samizdat, left_index=True, right_index=True, how='inner')
+
+topic_freq["freq_sum"] = topic_freq['freq_samizdat'] + topic_freq['freq_samizdat']
+topic_freq.sort_values(by="freq_sum", inplace=True)
+
+# plot
+topic_freq.plot.barh(y=['freq_exil', 'freq_samizdat'], stacked=True)
 
 # %%
 
@@ -48,7 +55,6 @@ topics_saizdat['periodical_category'] = 'saizdat'
 
 #%% EXPORT
 
-# %%
 merged_df.to_csv("small_dataset_for_viz.csv", columns=['periodical_category',
  'periodical_href',
  'periodical_title',
@@ -68,4 +74,7 @@ merged_df.to_csv("small_dataset_for_viz.csv", columns=['periodical_category',
  'Topic_8',
  'Topic_9',
  'Highest_Topic'])
+
+
 # %%
+
