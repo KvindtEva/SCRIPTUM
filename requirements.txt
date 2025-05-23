@@ -10,3 +10,4 @@ wordcloud>=1.9.2
 ipython>=8.12.0 
 datasets
 langdetect>=1.0.9
+turftopic
